@@ -1,7 +1,9 @@
 package net.gridplay.eoe.server;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,12 +13,14 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 public class TCP {
 	private final int port;
+    EventLoopGroup bossGroup;
+    EventLoopGroup workerGroup;
 	public TCP(int port) {
 		this.port = port;
 	}
-	public void start() throws Exception {
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+	public void start() throws InterruptedException {
+        bossGroup = new NioEventLoopGroup(1);
+        workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
@@ -29,13 +33,18 @@ public class TCP {
                         p.addLast(new StringEncoder());
                         p.addLast(new EchoTCPHandler());
                     }
-                });
+                })
+                .option(ChannelOption.SO_BACKLOG, 128)
+                .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            ChannelFuture f = b.bind(port).sync();
+            ChannelFuture f = b.bind(this.port).sync();
             f.channel().closeFuture().sync();
-        } finally {
-            workerGroup.shutdownGracefully();
-            bossGroup.shutdownGracefully();
+        } catch(Exception e) {
+        	System.out.println("TCP ERROR!");
         }
     }
+	public void close() {
+        workerGroup.shutdownGracefully();
+        bossGroup.shutdownGracefully();
+	}
 }

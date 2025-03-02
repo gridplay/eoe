@@ -1,33 +1,78 @@
 package net.gridplay.eoe.server;
 
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandler;
 
-public class EchoTCPHandler implements ChannelHandler {
+import java.util.UUID;
+public class EchoTCPHandler implements ChannelInboundHandler  {
 
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
 
+		System.out.println("got a tcp client!");
 	}
 
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println(msg.toString());
+		UUID cid =  UUID.randomUUID();
+		ctx.writeAndFlush(cid.toString());
+		System.out.println(cid);
+	}
+
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		// TODO Auto-generated method stub
-
+		
 	}
-	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("Received: " + msg);
-        ctx.write(msg); // Echo the received message back to the client
-    }
-
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.flush(); // Flush all previous written messages to the remote peer
-    }
 }

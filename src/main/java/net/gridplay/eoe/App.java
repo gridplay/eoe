@@ -8,9 +8,18 @@ import net.gridplay.eoe.server.EoEServer;
  */
 public class App 
 {
-    public static void main( String[] args )
+	static EoEServer eoes;
+    public static void main( String[] args ) throws InterruptedException
     {
-        System.out.println( "starting server" );
-        new EoEServer().startserver(666);
+    	Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            Shutdown();
+        }));
+        System.out.println( "starting server on port 666" );
+        eoes = new EoEServer();
+        eoes.startserver(666);
+    }
+    private static void Shutdown() {
+        System.out.println("Application is shutting down. Performing cleanup...");
+    	eoes.stop();
     }
 }

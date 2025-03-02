@@ -8,11 +8,12 @@ import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 public class UDP {
 	private final int port;
+    EventLoopGroup group;
 	public UDP(int port) {
 		this.port = port;
 	}
-	public void start() throws Exception {
-        EventLoopGroup group = new NioEventLoopGroup();
+	public void start() throws InterruptedException {
+		group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
@@ -26,8 +27,11 @@ public class UDP {
                 });
 
             b.bind(port).sync().channel().closeFuture().await();
-        } finally {
-            group.shutdownGracefully();
+        } catch(Exception e) {
+        	System.out.println("UDP ERROR!");
         }
     }
+	public void close() {
+        group.shutdownGracefully();
+	}
 }

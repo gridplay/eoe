@@ -1,17 +1,21 @@
 package net.gridplay.eoe.server;
 
+import java.util.UUID;
+
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.DatagramPacket;
 public class UdpServerHandler implements ChannelHandler {
+	
 	public void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) {
         System.out.println("Received: " + packet.content().toString(io.netty.util.CharsetUtil.UTF_8));
-        ctx.write(packet); // Echo the received message back to the client
+        ctx.writeAndFlush(packet); // Echo the received message back to the client
     }
 	@Override
 	public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
 		// TODO Auto-generated method stub
-
+		UUID cid =  UUID.randomUUID();
+		ctx.writeAndFlush(cid);
 	}
 
 	@Override
