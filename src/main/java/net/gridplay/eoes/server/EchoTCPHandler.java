@@ -46,10 +46,10 @@ public class EchoTCPHandler implements ChannelInboundHandler  {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println(msg.toString());
+		//System.out.println(msg.toString());
 		UUID cid =  UUID.randomUUID();
 		ctx.writeAndFlush(cid.toString());
-		System.out.println(cid);
+		//System.out.println(cid);
 	}
 
 	@Override

@@ -1,21 +1,10 @@
 package net.gridplay.eoes.server;
-
-//import java.net.InetAddress;
-
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.socket.DatagramPacket;
-public class UdpServerHandler  extends  SimpleChannelInboundHandler<DatagramPacket> {
-
+import io.netty.channel.ChannelInboundHandlerAdapter;
+public class UdpServerHandler extends ChannelInboundHandlerAdapter {
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-        //final InetAddress srcAddr = msg.sender().getAddress();
-        final ByteBuf buf = msg.content();
-        final int rcvPktLength = buf.readableBytes();
-        final byte[] rcvPktBuf = new byte[rcvPktLength];
-        buf.readBytes(rcvPktBuf);
-        System.out.println("Inside incomming packet handler");
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ctx.writeAndFlush("Yolo");
+        System.out.println("Inside incomming packet handler\n"+msg.toString());
 	}
-
 }

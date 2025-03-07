@@ -1,8 +1,9 @@
 package net.gridplay.eoes.server;
-import java.net.InetAddress;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -19,18 +20,15 @@ public class UDP {
             Bootstrap b = new Bootstrap();
             b.group(group)
                 .channel(NioDatagramChannel.class)
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .handler(new ChannelInitializer<NioDatagramChannel>() {
-
 					@Override
 					protected void initChannel(NioDatagramChannel ch) throws Exception {
-						// TODO Auto-generated method stub
 						ChannelPipeline p = ch.pipeline();
 	                    p.addLast(new UdpServerHandler());
 					}
-                    
                 });
-            InetAddress address  = InetAddress.getLocalHost();
-            b.bind(address, port).sync().channel().closeFuture().await();
+            b.bind(port).sync().channel().closeFuture().await();
         } catch(Exception e) {
         	System.out.println("UDP ERROR!");
         }
