@@ -1,4 +1,4 @@
-package net.gridplay.eoe.server;
+package net.gridplay.eoes.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

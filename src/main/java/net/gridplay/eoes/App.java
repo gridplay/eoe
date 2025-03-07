@@ -1,6 +1,6 @@
-package net.gridplay.eoe;
+package net.gridplay.eoes;
 
-import net.gridplay.eoe.server.EoEServer;
+import net.gridplay.eoes.server.EoEServer;
 
 /**
  * Hello world!

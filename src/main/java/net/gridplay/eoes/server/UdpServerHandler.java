@@ -1,4 +1,4 @@
-package net.gridplay.eoe.server;
+package net.gridplay.eoes.server;
 
 import java.util.UUID;
 

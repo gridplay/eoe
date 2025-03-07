@@ -1,4 +1,4 @@
-package net.gridplay.eoe.server;
+package net.gridplay.eoes.server;
 
 public class EoEServer {
 	TCP tcp;

@@ -1,4 +1,4 @@
-package net.gridplay.eoe.server;
+package net.gridplay.eoes.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandler;
