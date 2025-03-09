@@ -1,10 +1,25 @@
 package net.gridplay.eoes.server;
+
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-public class UdpServerHandler extends ChannelInboundHandlerAdapter {
-	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ctx.writeAndFlush("Yolo");
-        System.out.println("Inside incomming packet handler\n"+msg.toString());
-	}
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.socket.DatagramPacket;
+import io.netty.util.CharsetUtil;
+public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws Exception {
+        String message = packet.content().toString(CharsetUtil.UTF_8);
+        ByteBuf buffer = Unpooled.copiedBuffer("Yolo", CharsetUtil.UTF_8);
+        DatagramPacket responsePacket = new DatagramPacket(buffer, packet.sender());
+        ctx.writeAndFlush(responsePacket);
+        System.out.println("UDP Received: " + message);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.close();
+    }
 }

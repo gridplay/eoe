@@ -2,9 +2,9 @@ package net.gridplay.eoes.server;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
@@ -20,16 +20,17 @@ public class UDP {
             Bootstrap b = new Bootstrap();
             b.group(group)
                 .channel(NioDatagramChannel.class)
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                .option(ChannelOption.SO_BROADCAST, true)
                 .handler(new ChannelInitializer<NioDatagramChannel>() {
-					@Override
-					protected void initChannel(NioDatagramChannel ch) throws Exception {
-						ChannelPipeline p = ch.pipeline();
-	                    p.addLast(new UdpServerHandler());
-					}
+                    @Override
+                    protected void initChannel(NioDatagramChannel ch) throws Exception {
+                        ch.pipeline().addLast(new UdpServerHandler());
+                    }
                 });
-            b.bind(port).sync().channel().closeFuture().await();
+            ChannelFuture f = b.bind((port + 1)).sync();
+            f.channel().closeFuture().await();
         } catch(Exception e) {
+        	e.printStackTrace();
         	System.out.println("UDP ERROR!");
         }
     }

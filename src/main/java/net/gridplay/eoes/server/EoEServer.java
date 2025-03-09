@@ -14,16 +14,16 @@ public class EoEServer {
             }
         });
 
-        /*Thread udpThread = new Thread(() -> {
+        Thread udpThread = new Thread(() -> {
             try {
                 udp.start();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });*/
+        });
 
         tcpThread.start();
-        //udpThread.start();
+        udpThread.start();
 	}
 	public void stop() {
 		tcp.close();
