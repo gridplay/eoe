@@ -3,6 +3,12 @@
 Im doing a vampire vs lycan MMORPG and really want the server in java for many reasons.
 The client is using Unity 6.
 
+### The reasons?
+- Its fun to code in java
+- Both minecraft and Aion servers are in java and easy to setup and run
+- The code looks easy enough to do for MySQL usage
+- Always wanted to learn java since i got addicted to Minecraft
+
 ## Ideas for the server
 - Player Housing for sure, probably instanced like Lord of the Rings Online.
 - Housing to be premade homes to pick from like in SecondLife.
@@ -10,6 +16,7 @@ The client is using Unity 6.
 - PvE missions
 - Combat be with guns, lots of guns!
 - Crafting probably a mix of WoW and Minecraft
+- Covenants, they like guilds
 
 ## Server setup
 - TCP / UDP connection (kinda done)
@@ -33,9 +40,15 @@ So this is why I made the server files public, i believe in shared knowledge, sh
 I like to be able to allow private server owners to tell their own stories too using our assets.
 
 ## Revenue making?
-Sell the game for like $20 CAD, i hate how WoW then charges for expansions so wont do that.
+I hate how WoW charges for expansions on top of subs so wont do that.
 Free-to-play, subscriptions (VIP's) gets a bigger home lot, cosemtics and more.
 Microtransaction store.
 There WILL be official servers that people can play on or choose to go private.
 Currently login to the client is via my GridPlay One Account system and only for my premium users.
 GPPremium can only be bought monthly inside SecondLife with Linden Dollars.
+Idk, maybe take like 5% from microsales and/or VIP status of private servers.
+
+### Diff between home lots
+Free - 512 sqm home
+VIP - 1024 sqm
+Covenants - 2048 sqm
