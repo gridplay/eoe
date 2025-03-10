@@ -49,6 +49,6 @@ GPPremium can only be bought monthly inside SecondLife with Linden Dollars.
 Idk, maybe take like 5% from microsales and/or VIP status of private servers.
 
 ### Diff between home lots
-Free - 512 sqm home
-VIP - 1024 sqm
-Covenants - 2048 sqm
+- Free - 512 sqm home
+- VIP - 1024 sqm
+- Covenants - 2048 sqm
