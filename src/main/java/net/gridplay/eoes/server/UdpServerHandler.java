@@ -10,10 +10,10 @@ public class UdpServerHandler extends SimpleChannelInboundHandler<DatagramPacket
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws Exception {
-        String message = packet.content().toString(CharsetUtil.UTF_8);
         ByteBuf buffer = Unpooled.copiedBuffer("Yolo", CharsetUtil.UTF_8);
         DatagramPacket responsePacket = new DatagramPacket(buffer, packet.sender());
-        ctx.writeAndFlush(responsePacket);
+        ctx.channel().writeAndFlush(responsePacket);
+        String message = packet.content().toString(CharsetUtil.UTF_8);
         System.out.println("UDP Received: " + message);
     }
 
